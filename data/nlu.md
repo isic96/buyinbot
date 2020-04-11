@@ -88,7 +88,6 @@
 - give feedback
 - I want to give feedback
 
-
 ## intent:tour.general
 - can you give me a quick tour
 - can you show me around
@@ -101,6 +100,7 @@
 - Can I get a tour please
 - Can I get a quick tour?
 - quick tour please
+- Can you give me a quick tour?
 
 ## intent:category.search
 - Can I see the category [Devices](category) please
