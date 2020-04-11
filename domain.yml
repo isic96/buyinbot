@@ -1,32 +1,303 @@
-intents:
-  - greet
-  - goodbye
-  - affirm
-  - deny
-  - mood_great
-  - mood_unhappy
-  - bot_challenge
-
-responses:
-  utter_greet:
-  - text: "Hey! How are you?"
-
-  utter_cheer_up:
-  - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
-
-  utter_did_that_help:
-  - text: "Did that help you?"
-
-  utter_happy:
-  - text: "Great, carry on!"
-
-  utter_goodbye:
-  - text: "Bye"
-
-  utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
-
 session_config:
-  session_expiration_time: 60
+  session_expiration_time: 0
   carry_over_slots_to_new_session: true
+intents:
+- greet
+- goodbye
+- affirm
+- deny
+- stop
+- mood_great
+- mood_unhappy
+- bot_challenge
+- tour.general
+- tour.question
+- supplier.general
+- feedback
+- main_menu
+- category.search
+- faq
+- faq/ask_data
+- faq/ask_share
+- faq/ask_help
+- faq/ask_error
+- faq/ask_mobile_app
+- faq/ask_logout
+- faq/ask_favorite
+- faq/ask_password
+- out_of_scope
+entities:
+- category
+- topic
+slots:
+  category:
+    type: unfeaturized
+  influence:
+    type: unfeaturized
+    auto_fill: false
+  rating:
+    type: unfeaturized
+    auto_fill: false
+  requested_slot:
+    type: unfeaturized
+  topic:
+    type: unfeaturized
+responses:
+  utter_default:
+  - text: I am not sure I can help you with this, try rephrasing your question. Otherwise
+      you can always greet me again to get back to the start of our conversatuon.
+  utter_greet:
+  - text: Hello  I'm Buyin Bot, I am here to support you during your stay at myBuyin.
+      I can do a few different things for you. Simply click on a topic that interests
+      you and I will do my best to help.
+    buttons:
+    - title: Give me a quick tour
+      type: postback
+      payload: /tour.general
+    - title: Find specific supplier information
+      type: postback
+      payload: /supplier.general
+    - title: Product Category Information
+      payload: /category.search
+    - title: Provide feedback
+      type: postback
+      payload: /feedback
+  utter_cheer_up:
+  - text: 'Here is something to cheer you up:'
+    image: https://i.imgur.com/nGF1K8f.jpg
+  utter_did_that_help:
+  - text: Did that help you?
+  utter_happy:
+  - text: Great, carry on!
+  utter_goodbye:
+  - text: Bye
+  utter_iamabot:
+  - text: I am a bot, powered by Rasa.
+  utter_ask_category:
+  - text: Our product category specific sites show all information we have filtered
+      by that category. Tell me a category and we can get going
+  utter_supplier_menu:
+  - text: For suppliers we have the following topics available
+    buttons:
+    - title: Spend
+      type: postback
+      payload: /supplier.spend
+    - title: Financials
+      type: postback
+      payload: /supplier.financials
+    - title: Profile & Ratings
+      type: postback
+      payload: /supplier.profile
+    - title: Vendor news
+      type: postback
+      payload: /supplier.vendor_news
+    - title: Executive Profiles
+      type: postback
+      payload: /supplier.executive_profiles
+  utter_show_filters:
+  - text: myBuyin offers content over a wide spectrum of topics. If you have specific
+      categories that you are interested in, simply click the category filters on
+      the left.
+    image: http://localhost:7000/get-image/filters
+  utter_show_search:
+  - text: At the top you have a search bar. Enter keywords related to topics of interest
+      and you will get content suggestions on myBuyin.
+    image: http://localhost:7000/get-image/search
+  utter_show_icons:
+  - text: "In the top right corner you find a few icons. \nFrom left to right, you\
+      \ can: \n- report an error \n- download the mobile app \n- access the FAQs \n\
+      - go to your account settings"
+    image: http://localhost:7000/get-image/icons
+  utter_ask_continue:
+  - text: Can I continue or do you have questions so far?
+    buttons:
+    - title: Continue
+      payload: /affirm
+    - title: Questions
+      payload: /tour.question
+    - title: Back to menu
+      payload: /main_menu
+  utter_ask_rating:
+  - text: How was your experience with us?
+    buttons:
+    - title: 1
+      payload: '1'
+    - title: 2
+      payload: '2'
+    - title: 3
+      payload: '3'
+    - title: 4
+      payload: '4'
+    - title: 5
+      payload: '5'
+    - title: 👏👏👏😍
+      payload: '6'
+  utter_ask_influence:
+  - text: "Sorry to hear this. \n\nCan you help me understand what influenced your\
+      \ rating?"
+  utter_influence_done:
+  - text: Thanks for bringing this issue to our attention.
+  utter_pre_finish:
+  - text: Thank you for your time with us.
+  utter_finish:
+  - text: I’m sharing the information on your behalf with our team. Have a nice day!
+  utter_thanks:
+  - text: Thanks!
+  utter_awesome:
+  - text: Awesome!
+  utter_video:
+  - text: 'Here is a link to our Video Guide: https://api.buyin.pro/mbinews/v3/resources/Zs3xq9Y98vCoh7rPONDvvSNe5HJThgcTmoaHq6gc3qs.
+      This will hopefully answer remaining questions.'
+  utter_contact_details:
+  - text: 'If you still have questions or need support otherwise, please feel free
+      to contact our Team via: digital_office@buyin.pro'
+  utter_main_menu:
+  - text: Simply click on a topic that interests you and I will do my best to help.
+    buttons:
+    - title: Give me a quick tour
+      type: postback
+      payload: /tour.general
+    - title: Find specific supplier information
+      type: postback
+      payload: /supplier.general
+    - title: Product Category Information
+      payload: /category.search
+    - title: Provide feedback
+      type: postback
+      payload: /feedback
+  utter_product_category:
+  - text: 'You selected the Product Category: {category}'
+  utter_ask_rephrase:
+  - text: Sorry, I'm not sure I understand. Could you rephrase it?
+  utter_ask_continue_query:
+  - text: Do you want to do another search? If yes just tell me a different topic
+      out of the ones below otherwise you can also go back to the main menu
+    buttons:
+    - title: Updates
+      type: postback
+      payload: /tour.question{"topic":"updates"}
+    - title: Suppliers
+      type: postback
+      payload: /tour.question{"topic":"suppliers"}
+    - title: Nego Roadmap
+      type: postback
+      payload: /tour.question{"topic":"negoroadmap"}
+    - title: Contracts
+      type: postback
+      payload: /tour.question{"topic":"contracts"}
+    - title: Strategy
+      type: postback
+      payload: /tour.question{"topic":"strategies"}
+    - title: Contacts
+      type: postback
+      payload: /tour.question{"topic":"contacts"}
+    - title: Back to menu
+      payload: /main_menu
+  utter_faq_link:
+  - text: 'I also have a link to our FAQs here, where some common questions are answered: '
+  utter_end_tour:
+  - text: This is the end of our quick tour, let me know if it was helpful or not
+    buttons:
+    - title: Yes
+      type: postback
+      payload: /tour.general
+    - title: No
+      type: postback
+      payload: /tour.question
+  utter_show_catscreen:
+  - text: If you click on one of the category filters on the left it takes you directly
+      to the screen with all information regarding that category. If you want to I
+      can also directly take you to a specific category, just tell me which one
+    image: http://localhost:7000/get-image/cat_screen
+  utter_show_updates:
+  - text: The first screen you see when selecting a category is the updates. Here
+      BuyIn Colleagues are sharing market insights, supplier analysis, category news
+      and negotiation results
+  utter_show_suppliers:
+  - text: The suppliers tab has all spend data per supplier and by clicking on a supplier
+      you get to browse all supplier related information
+    image: http://localhost:7000/get-image/supplier_screen
+  utter_show_negoroadmap:
+  - text: The Nego Roadmaps tab shows you all the negotiation acitivities BuyIn is
+      working on.
+  utter_show_contracts:
+  - text: In the contracts tab we are listing the most important contracts and their
+      key information
+  utter_show_strategies:
+  - text: With Strategies we are describing the market dynamics and our recommended
+      sourcing policy for each Product Category
+  utter_show_contacts:
+  - text: In the contacts tab we have a list of all BuyIn colleagues related to the
+      product category you are looking at. Feel free to contact them if you have any
+      questions.
+  utter_show_spend:
+  - text: After you selected a specific supplier, you get to a new screen that has
+      all the information for that specific supplier. The first tab shows the spend
+      split by year and product.
+  utter_show_financials:
+  - text: The second supplier tab has the financial information for the selected supplier
+      analyzed by time, region and segment
+  utter_show_ratings:
+  - text: The Profile & Ratings tab has a company profile and CSR ratings available.
+  utter_show_news:
+  - text: The vendor news tab lets you read summaries of the most recent public news
+      for the selected supplier.  They also include links to the full articles.
+  utter_show_keystaff:
+  - text: They Key Staff tab holds contact information of key personnel, such as the
+      directors, of the selected supplier.
+  utter_restart_with_button:
+  - buttons:
+    - payload: /restart
+      title: Restart
+    text: Click the button below if you want to start over.
+actions:
+- utter_greet
+- utter_cheer_up
+- utter_restart_with_button
+- utter_did_that_help
+- utter_happy
+- utter_goodbye
+- utter_iamabot
+- utter_supplier_menu
+- utter_show_filters
+- utter_show_search
+- utter_show_icons
+- utter_ask_rating
+- utter_ask_influence
+- utter_influence_done
+- utter_pre_finish
+- utter_finish
+- utter_thanks
+- utter_awesome
+- utter_ask_continue
+- utter_video
+- utter_contact_details
+- utter_main_menu
+- utter_product_category
+- utter_ask_rephrase
+- utter_ask_continue_query
+- utter_faq_link
+- utter_end_tour
+- action_search
+- action_tour
+- utter_show_catscreen
+- utter_show_updates
+- utter_show_suppliers
+- utter_show_negoroadmap
+- utter_show_contracts
+- utter_show_strategies
+- utter_show_contacts
+- utter_show_spend
+- utter_show_financials
+- utter_show_ratings
+- utter_show_news
+- utter_show_keystaff
+- respond_faq
+- utter_ask_category
+- action_default_ask_affirmation
+- action_default_fallback
+- utter_default
+forms:
+- form_get_rating
+- form_get_influence
+- form_get_category
